@@ -2,16 +2,54 @@
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { images } from "@/components/carousel";
 import ArrowRightIcon from "@/icons/arrow-right-icon";
 import ArrowLeftIcon from "@/icons/arrow-left-icon";
 import { phones } from "@/constants";
+import { Controller, useForm } from "react-hook-form";
+import InputField from "../../../components/input-field";
+import SelectField from "../../../components/select-field";
 
 export default function Iphone15() {
   const [currentIndex, setCurrentIndex] = React.useState(1);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
 
   const slides = [images[images.length - 1], ...images, images[0]];
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const schema = yup.object({
+    fullName: yup.string().required(),
+    phoneNum: yup.string().required(),
+    altNum: yup.string().required(),
+    email: yup.string().required(),
+    deliveryAddress: yup.string().required(),
+    cityState: yup.string().required(),
+    phones: yup.string().required(),
+  });
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    reset,
+    control,
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phoneNum: "",
+      altNum: "",
+      deliveryAddress: "",
+      cityState: "",
+      phones: "",
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: object) => {
+    setIsLoading(true);
+  };
 
   const prevSlide = () => {
     if (isTransitioning) return;
@@ -206,64 +244,117 @@ export default function Iphone15() {
           </p>
         </div>
 
-        <form className="b bg-slate-100 w-full lg:px-20 px-4 py-10 my-10 lg:ml-3 ml-0">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="b bg-slate-100 w-full lg:px-20 px-4 py-10 my-10 lg:ml-3 ml-0">
           <h1 className="text-2xl">ORDER NOW</h1>
           <p className="text-slate-400 font-extralight text-xs">
             TO ENJOY 35% DISCOUNT N175,000 (CURRENT PROMO PRICE)
           </p>
           <div className="py-4 md:space-y-6 space-y-4">
-            <Input
-              variant="bordered"
-              placeholder="Full Name"
-              className="w-full"
-              size="sm"
-            />
-            <Input
-              variant="bordered"
-              placeholder="Phone Number"
-              className="w-full"
-              size="sm"
-            />
-            <Input
-              variant="bordered"
-              placeholder="Email"
-              className="w-full"
-              size="sm"
-            />
-            <Input
-              variant="bordered"
-              placeholder="Alternative Number"
-              className="w-full"
-              size="sm"
-            />
-            <Input
-              variant="bordered"
-              placeholder="Delivery Address"
-              className="w-full"
-              size="sm"
-            />
-            <Input
-              variant="bordered"
-              placeholder="City/State"
-              className="w-full"
-              size="sm"
+            <Controller
+              name="fullName"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="fullName"
+                  field={field}
+                  errors={errors}
+                  placeholder="Full Name"
+                />
+              )}
             />
 
-            <Select
-              placeholder="Select phones"
-              defaultSelectedKeys={[
-                "1 Piece of Iphone 14 Pro Max (Android Version) : N175,000",
-              ]}
-              className="w-full ">
-              {phones.map((phone) => (
-                <SelectItem key={phone.value} value={phone.value}>
-                  {phone.label}
-                </SelectItem>
-              ))}
-            </Select>
+            <Controller
+              name="phoneNum"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="phoneNum"
+                  field={field}
+                  errors={errors}
+                  placeholder="Phone Number"
+                />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="email"
+                  field={field}
+                  errors={errors}
+                  placeholder="Email"
+                />
+              )}
+            />
+            <Controller
+              name="altNum"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="altNum"
+                  field={field}
+                  errors={errors}
+                  placeholder="Alternative Number"
+                />
+              )}
+            />
+            <Controller
+              name="deliveryAddress"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="deliveryAddress"
+                  field={field}
+                  errors={errors}
+                  placeholder="Delivery Address"
+                />
+              )}
+            />
+            <Controller
+              name="cityState"
+              control={control}
+              render={({ field }) => (
+                <InputField
+                  defaultValue={field.value}
+                  name="cityState"
+                  field={field}
+                  errors={errors}
+                  placeholder="City/State"
+                />
+              )}
+            />
 
-            <Button size="lg" className="bg-[#041E42] text-white px-8 py-4">
-              Submit
+            <Controller
+              name="phones"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  name="phones"
+                  errors={errors}
+                  field={field}
+                  lists={phones}
+                  placeholder="1 Piece of Iphone 14 Pro Max (Android Version) : N175,000"
+                  onChange={field.onChange}
+                />
+              )}
+            />
+
+            <Button
+              size="lg"
+              className="self-end mt-10 bg-[#041E42] text-white px-8 py-4"
+              color="primary"
+              isLoading={isLoading}
+              type="submit"
+              spinnerPlacement="end">
+              {isLoading ? "Submitting" : "Submit"}
             </Button>
           </div>
         </form>

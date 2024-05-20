@@ -24,6 +24,7 @@ interface InputProps {
   onClick?: () => void;
   onChange?: (value: string) => void;
   onValueChange?: (value: string) => void;
+  variant?: string;
 }
 
 export default function InputField({
@@ -45,6 +46,7 @@ export default function InputField({
   value,
   disabled,
   startContent,
+  variant,
   onClick,
   onChange,
   onValueChange,
@@ -52,6 +54,7 @@ export default function InputField({
   return (
     <div className="relative flex flex-col">
       <Input
+        variant="bordered"
         type={type}
         label={label}
         placeholder={placeholder}
