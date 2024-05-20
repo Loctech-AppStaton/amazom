@@ -16,6 +16,7 @@ interface InputProps {
   errors: any;
   lists: { label: string; value: string }[];
   value?: any;
+  variant?: string;
   getValue?: (event: string) => void;
   labelPlacement?: "outside" | "inside" | "outside-left";
   onSelectionChange?: (value: any) => void;
@@ -35,11 +36,13 @@ export default function SelectField({
   defaultValue,
   labelPlacement = "outside",
   isDisabled,
+  variant,
   onChange,
 }: InputProps) {
   return (
     <div className="relative flex flex-col">
       <Select
+        variant="bordered"
         isDisabled={isDisabled}
         label={label}
         labelPlacement={labelPlacement}
