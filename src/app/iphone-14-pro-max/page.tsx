@@ -347,8 +347,8 @@ export default function Iphone14() {
       </form>
       <div className="flex justify-center items-center">
         <Image
-          src="/images/cash-on-delivery.jpg "
-          alt=""
+          src="/images/cash-on-delivery.png"
+          alt="cash-on-delivery-image"
           width={200}
           height={200}
           className="w-72 h-72 object-cover"
