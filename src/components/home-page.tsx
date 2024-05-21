@@ -74,7 +74,7 @@ export default function HomePage() {
       </div>
       <div className="flex justify-center items-center">
         <Image
-          src="/images/cash-on-delivery.jpg "
+          src="/images/cash-on-delivery.png"
           alt=""
           width={200}
           height={200}
