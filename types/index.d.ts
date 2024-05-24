@@ -6,3 +6,12 @@ interface IconSvgProps {
   opacity?: number | string;
   onClick?: (event: any) => void;
 }
+
+interface NavLinksProps {
+  title: string;
+  links: {
+    name: string;
+    route: string;
+    icon?: React.JSX.Element;
+  }[];
+}

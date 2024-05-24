@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .max-container {
     @apply mx-auto max-w-[1680px];

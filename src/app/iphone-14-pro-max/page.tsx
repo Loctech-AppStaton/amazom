@@ -1,17 +1,17 @@
 "use client";
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
 import ArrowLeftIcon from "../../icons/arrow-left-icon";
-import { images } from "../../components/carousel";
+import { images } from "../../_components/carousel";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
-import Iphone14Pro from "../../components/Iphone14-pro";
+import Iphone14Pro from "../../_components/Iphone14-pro";
 import { phones } from "@/constants";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import InputField from "../../../components/input-field";
 import SelectField from "../../../components/select-field";
+import { Button } from "@nextui-org/react";
 
 export default function Iphone14() {
   const [currentIndex, setCurrentIndex] = React.useState(1);

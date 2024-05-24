@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { images } from "@/components/carousel";
+import { images } from "@/_components/carousel";
 import ArrowRightIcon from "@/icons/arrow-right-icon";
 import ArrowLeftIcon from "@/icons/arrow-left-icon";
 import { phones } from "@/constants";
