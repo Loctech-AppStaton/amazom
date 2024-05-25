@@ -1,5 +1,5 @@
 import React from "react";
-import OrdersTable from "../_components/table/UserTable";
+import OrdersTable from "../_components/table/OrdersTable";
 
 export default function Orders() {
   return (

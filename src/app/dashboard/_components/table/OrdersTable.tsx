@@ -31,7 +31,16 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "email",
+  "phoneNumber",
+  "alternativeNumber",
+  "address",
+  "city",
+  "status",
+  "actions",
+];
 
 type User = (typeof users)[0];
 
@@ -67,7 +76,7 @@ export default function App() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.fullName.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (
@@ -105,12 +114,14 @@ export default function App() {
     const cellValue = user[columnKey as keyof User];
 
     switch (columnKey) {
-      case "name":
+      case "fullName":
+        return <div>{user.fullName}</div>;
+      case "email":
         return <div>{user.email}</div>;
-      case "role":
+      case "address":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize"> {user.team}</p>
+            <p className="text-bold text-small capitalize"> {user.address}</p>
           </div>
         );
       case "status":
@@ -215,7 +226,7 @@ export default function App() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Dropdown>
+            {/* <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
                   // endContent={<ChevronDownIcon className="text-small" />}
@@ -236,7 +247,7 @@ export default function App() {
                   </DropdownItem>
                 ))}
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
             {/* <Button color="primary" endContent={<PlusIcon />}>
               Add New
             </Button> */}
@@ -316,7 +327,6 @@ export default function App() {
         wrapper: "max-h-[382px]",
       }}
       selectedKeys={selectedKeys}
-      selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
