@@ -1,3 +1,6 @@
+import MoneyIcon from "@/icons/money-icon";
+import OrdersIcon from "@/icons/orders-icon";
+
 export const navLinks: NavLinksProps[] = [
   {
     title: "Dashboard",
@@ -5,13 +8,13 @@ export const navLinks: NavLinksProps[] = [
       {
         name: "Orders",
         route: "/dashboard/orders",
-        // icon: <DashboardIcon />,
+        icon: <OrdersIcon />,
       },
 
       {
         name: "Price",
-        route: "/dashboard/price",
-        // icon: <PeopleIcon />,
+        route: "/dashboard/price/iphone-14-pro-max",
+        icon: <MoneyIcon />,
       },
     ],
   },

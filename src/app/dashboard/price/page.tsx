@@ -1,9 +1,5 @@
 import React from "react";
 
-export default function Price() {
-  return (
-    <div>
-      <p>Price</p>
-    </div>
-  );
+export default function page() {
+  return <div></div>;
 }
