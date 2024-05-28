@@ -1,39 +1,27 @@
 "use client";
-import React from "react";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  User,
+  Input,
   Pagination,
   Selection,
   SortDescriptor,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
 } from "@nextui-org/react";
-
+import { SearchIcon } from "lucide-react";
+import moment from "moment";
+import React from "react";
+import { useParams } from "next/navigation";
 import { columns, users } from "./data";
-import { VerticalDotsIcon } from "@/icons/vertical-dots-Icon";
+import Iphone14Modal from "../iphone14Modal";
 
-const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "email",
-  "phoneNumber",
-  "alternativeNumber",
-  "address",
-  "city",
-];
+const INITIAL_VISIBLE_COLUMNS = ["phone", "price", "actions"];
 
-type User = (typeof users)[0];
-
-export default function App() {
+export default function Iphone14Table() {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([])
@@ -47,6 +35,23 @@ export default function App() {
     column: "age",
     direction: "ascending",
   });
+
+  const [data, setData] = React.useState<any[]>([]);
+  const { slug } = useParams();
+
+  type User = (typeof data)[0];
+
+  //   React.useEffect(() => {
+  //     const getRevenue = async () => {
+  //       try {
+  //         const res: any = await get(`revenue?branch=${slug}`);
+  //         setData(res.data);
+  //       } catch (error: any) {
+  //         toast.error(error.response?.data?.message);
+  //       }
+  //     };
+  //     getRevenue();
+  //   }, [data]);
 
   const [page, setPage] = React.useState(1);
 
@@ -65,12 +70,20 @@ export default function App() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.fullName.toLowerCase().includes(filterValue.toLowerCase())
+        user?.phone?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
+    // if (
+    //   statusFilter !== "all" &&
+    //   Array.from(statusFilter).length !== statusOptions.length
+    // ) {
+    //   filteredUsers = filteredUsers.filter((user) =>
+    //     Array.from(statusFilter).includes(user.status)
+    //   );
+    // }
 
     return filteredUsers;
-  }, [hasSearchFilter, filterValue]);
+  }, [users, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -95,32 +108,13 @@ export default function App() {
     const cellValue = user[columnKey as keyof User];
 
     switch (columnKey) {
-      case "fullName":
-        return <div>{user.fullName}</div>;
-      case "email":
-        return <div>{user.email}</div>;
-      case "address":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize"> {user.address}</p>
-          </div>
-        );
+      case "date":
+        return <div>{moment(user.date).format("MMMM Do YYYY")}</div>;
 
       case "actions":
         return (
-          <div className="relative flex justify-start items-start gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+          <div className="flex flex-row items-center justify-start gap-4">
+            {/* <RevenueDetails data={user} /> */}
           </div>
         );
       default:
@@ -170,29 +164,19 @@ export default function App() {
             isClearable
             className="w-full sm:max-w-[44%]"
             placeholder="Search by name..."
+            startContent={<SearchIcon />}
             value={filterValue}
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">
-            Total {users.length} users
-          </span>
-          <label className="flex items-center text-default-400 text-small">
-            Rows per page:
-            <select
-              className="bg-transparent outline-none text-default-400 text-small"
-              onChange={onRowsPerPageChange}>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </label>
+
+          <div className="flex gap-3">
+            <Iphone14Modal />
+          </div>
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
@@ -248,6 +232,7 @@ export default function App() {
         wrapper: "max-h-[382px]",
       }}
       selectedKeys={selectedKeys}
+      //   selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
@@ -263,9 +248,9 @@ export default function App() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
+      <TableBody emptyContent={"No phone found"} items={data}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item._id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

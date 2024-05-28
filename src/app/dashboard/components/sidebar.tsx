@@ -3,7 +3,7 @@
 import NotificationIcon from "@/icons/notification-icon";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface NavLinkProps {
   navLinks: NavLinksProps[];
@@ -55,25 +55,6 @@ export default function Sidebar({ navLinks }: NavLinkProps) {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="px-8 mt-auto py-4 ml-2">
-          <Link
-            href={`/${path}/notifications`}
-            className={
-              "flex items-center flex-row justify-between cursor-pointer py-1 px-2 rounded-sm " +
-              (pathname.startsWith("/human-resources/notifications") &&
-                "text-black")
-            }>
-            <div className="flex items-center flex-row gap-3 cursor-pointer">
-              <NotificationIcon />
-              Notifications
-            </div>
-            <div className="w-7 h-7 p-1.5 text-xs rounded-full bg-[#fffafa] text-primary font-bold flex items-center justify-center mt-1">
-              10 <sup>+</sup>
-            </div>
-          </Link>
-          <div className="text-slate-500 text-xs mt-2.5">v1.0.0</div>
         </div>
       </div>
     </div>

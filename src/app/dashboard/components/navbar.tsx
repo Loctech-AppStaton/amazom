@@ -2,10 +2,8 @@
 
 import moment from "moment";
 import { useState } from "react";
-import { Notifications } from "./notifications";
 import MagnifyingGlassIcon from "@/icons/magnifying-glass-icon";
 import { Input } from "@nextui-org/react";
-// import DropdownProfile from "./dropdown-profile";
 import Clock from "./clock";
 import MobileSidebar from "./mobile-sidebar";
 import HamburgerIcon from "@/icons/hamburger-icon";
@@ -53,7 +51,6 @@ export default function Navbar({ navLinks, time }: NavbarProps) {
             </div>
             <Clock time={time} />
           </div>
-          <Notifications />
           {/* <DropdownProfile /> */}
         </div>
       </div>

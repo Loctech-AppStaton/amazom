@@ -32,14 +32,6 @@ const columns = [
   { name: "ALTERNATIVENUMBER", uid: "alternativeNumber", sortable: true },
   { name: "DELIVERYADDRESS", uid: "address", sortable: true },
   { name: "CITY", uid: "city" },
-  { name: "STATUS", uid: "status", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
-];
-
-const statusOptions = [
-  { name: "Active", uid: "active" },
-  { name: "Paused", uid: "paused" },
-  { name: "Vacation", uid: "vacation" },
 ];
 
 const users = [
@@ -48,7 +40,6 @@ const users = [
     fullName: "Tony Reichert",
     address: "CEO",
     city: "Management",
-    status: "active",
     phoneNumber: "29",
     alternativeNumber: "090754345678",
     email: "tony.reichert@example.com",
@@ -58,7 +49,6 @@ const users = [
     fullName: "Zoey Lang",
     address: "Tech Lead",
     city: "Development",
-    status: "paused",
     phoneNumber: "25",
     alternativeNumber: "090754345678",
 
@@ -69,7 +59,6 @@ const users = [
     fullName: "Jane Fisher",
     address: "Sr. Dev",
     city: "Development",
-    status: "active",
     phoneNumber: "22",
     alternativeNumber: "090754345678",
 
@@ -91,7 +80,6 @@ const users = [
     fullName: "Kristen Copper",
     address: "S. Manager",
     city: "Sales",
-    status: "active",
     phoneNumber: "24",
     alternativeNumber: "090754345678",
 
@@ -106,14 +94,12 @@ const users = [
     alternativeNumber: "090754345678",
 
     email: "brian.kim@example.com",
-    status: "Active",
   },
   {
     id: 7,
     fullName: "Michael Hunt",
     address: "Designer",
     city: "Design",
-    status: "paused",
     phoneNumber: "27",
     alternativeNumber: "090754345678",
 
@@ -121,4 +107,4 @@ const users = [
   },
 ];
 
-export { columns, users, statusOptions };
+export { columns, users };
